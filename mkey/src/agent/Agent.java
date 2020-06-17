@@ -3,7 +3,17 @@ package agent;
 public abstract class Agent {
 	protected double cash;
 
+	private int id;
+
 	abstract int getProduction();
+
+	public double getID() {
+		return id;
+	}
+
+	public void setID(int id) {
+		this.id = id;
+	}
 
 	public double getCash() {
 		return cash;
