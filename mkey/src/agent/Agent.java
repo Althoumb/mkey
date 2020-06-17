@@ -1,9 +1,19 @@
 package agent;
 
-public class Agent {
+public abstract class Agent {
+	protected double cash;
 
-	public Agent() {
+	abstract int getProduction();
 
+	public double getCash() {
+		return cash;
 	}
 
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
+
+	public void addCash(double cash) {
+		this.cash += cash;
+	}
 }
