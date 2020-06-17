@@ -6,4 +6,10 @@ public class Firm extends Agent {
 		this.setID(id);
 	}
 
+	@Override
+	int getProduction() {
+		// TODO Auto-generated method stub
+		return 40;
+	}
+
 }
