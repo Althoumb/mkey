@@ -1,28 +1,29 @@
 package agent;
 
-import java.util.ArrayList;
-
 import market.Goods.Good;
 
 public abstract class Agent {
 	protected double cash;
+	protected Good goodProduced;
 
 	private int id;
 
 	abstract int getProduction();
 
-	public ArrayList<Good> getProductionPossibilities() {
+	abstract double getPrice();
 
-		ArrayList<Good> possibilities = new ArrayList<Good>();
-
-		for (Good good : Good.values()) {
-			if (this.getClass().equals(good.getPlaceProduced())) {
-				possibilities.add(good);
-			}
-		}
-
-		return possibilities;
-	}
+	/*
+	 * Do we really need dynamic production? public ArrayList<Good>
+	 * getProductionPossibilities() {
+	 * 
+	 * ArrayList<Good> possibilities = new ArrayList<Good>();
+	 * 
+	 * for (Good good : Good.values()) { if
+	 * (this.getClass().equals(good.getPlaceProduced())) { possibilities.add(good);
+	 * } }
+	 * 
+	 * return possibilities; }
+	 */
 
 	public double getID() {
 		return id;

@@ -7,7 +7,7 @@ import market.Goods.Good;
 import util.GoodOfferComparator;
 import util.Pair;
 
-public abstract class Market {
+public class Market {
 	Good good;
 	ArrayList<Pair<Double, Agent>> goodsForSale = new ArrayList<Pair<Double, Agent>>();
 
