@@ -17,4 +17,13 @@ public class Manager {
 			households.add(new Household(i));
 		}
 	}
+
+	public void Tick() {
+		// First, get labor production.
+		// Then, add to market and sort.
+		// Let firms buy labor and produce.
+		// Then, add to market and sort.
+		// Let households buy goods.
+		// Roll everything over.
+	}
 }
