@@ -6,14 +6,16 @@ import agent.Household;
 
 public class Goods {
 	public enum Good {
-		LABOR(LaborMarket.class, Household.class), GOODS(GoodMarket.class, Firm.class);
+		LABOR(Household.class), GOODS(Firm.class);
 
-		private final Class<? extends Market> placeSold;
 		private final Class<? extends Agent> placeProduced;
 
-		Good(Class<? extends Market> placeSold, Class<? extends Agent> placeProduced) {
-			this.placeSold = placeSold;
+		Good(Class<? extends Agent> placeProduced) {
 			this.placeProduced = placeProduced;
+		}
+
+		public Class<? extends Agent> getPlaceProduced() {
+			return placeProduced;
 		}
 	}
 }
