@@ -6,8 +6,9 @@ import agent.Household;
 
 public class Goods {
 	public enum Good {
-		LABOR(Household.class, 0, 0.25, 1, 0, 0), GOODA(Firm.class, 0.75, 0.25, 8, 0.5, 0.5),
-		GOODB(Firm.class, 0.75, 0.25, 8, 0.5, 0.5);
+		LABOR(Household.class, 0, 0.25, 1, 0, 0), FOOD(Firm.class, 0.75, 0.25, 100, 0.1, 500),
+		SERVICES(Firm.class, 0.75, 0.25, 10, 0.5, 50), TRANSPORTATION(Firm.class, 0.75, 0.25, 10, 0.2, 200),
+		CONSUMER_GOODS(Firm.class, 0.75, 0.25, 20, 0.4, 80);
 
 		private final Class<? extends Agent> placeProduced;
 		private double laborExponent;

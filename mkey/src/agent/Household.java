@@ -33,25 +33,23 @@ public class Household extends Agent {
 	@Override
 	public double getPrice() {
 		// TODO Auto-generated method stub
-		return BoundedRandomNormal.getBoundedRandomNormal(2.0, 10.0, 4.0, 2.0);
+		return BoundedRandomNormal.getBoundedRandomNormal(8.0, 20.0, 15.0, 2.0);
 	}
 
 	private double getUtility() {
 		double utility = 1;
 		for (Good good : purchaseableGoods) {
-			double factor = Math.pow(quantityEachGood.get(good) + 1, good.getConsumptionExponent())
+			double factor = Math.pow(quantityEachGood.get(good), good.getConsumptionExponent())
 					* good.getConsumptionMultiplier();
-			utility *= factor;
+			utility += factor;
 		}
 		return utility;
 	}
 
 	private double getMarginalUtility(Good good) {
-		double utility = getUtility();
-		quantityEachGood.replace(good, quantityEachGood.get(good) + 1);
-		double newUtility = getUtility();
-		quantityEachGood.replace(good, quantityEachGood.get(good) - 1);
-		return newUtility - utility;
+		return (Math.pow(quantityEachGood.get(good) + 1, good.getConsumptionExponent())
+				- Math.pow(quantityEachGood.get(good), good.getConsumptionExponent()))
+				* good.getConsumptionMultiplier();
 	}
 
 	public boolean buyGoods() {

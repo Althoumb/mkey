@@ -47,6 +47,7 @@ public class Manager {
 		getLaborProduction();
 		// Let firms buy labor and produce.
 		buyLabor();
+		test();
 		// Then, add to market and sort.
 		getFirmProduction();
 		// Let households buy goods.
@@ -62,7 +63,7 @@ public class Manager {
 		for (Firm firm : firms) {
 			System.out.printf("Firm has $%.2f %n", firm.getCash());
 		}
-		System.out.println((markets.get(Good.LABOR).getOffers().size()) / 40.0 + "% labor underutilization");
+		System.out.println(100.0 * (markets.get(Good.LABOR).getOffers().size()) / 4000.0 + "% labor underutilization");
 	}
 
 	public void getLaborProduction() {
