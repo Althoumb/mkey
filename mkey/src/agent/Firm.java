@@ -3,6 +3,7 @@ package agent;
 import manager.Manager;
 import market.Goods.Good;
 import market.Market;
+import util.BoundedRandomNormal;
 
 public class Firm extends Agent {
 	private int labor;
@@ -27,19 +28,19 @@ public class Firm extends Agent {
 	}
 
 	double getUnroundedProduction() {
-		return goodProduced.getProductionMultiplier() * Math.pow(labor, goodProduced.getLaborExponent())
-				* Math.pow(capital, goodProduced.getCapitalExponent());
+		return goodProduced.getProductionMultiplier() * Math.pow(labor + 1, goodProduced.getLaborExponent())
+				* Math.pow(capital + 1, goodProduced.getCapitalExponent());
 	}
 
 	double getMarginalProduction() {
-		return goodProduced.getProductionMultiplier() * Math.pow(labor + 1, goodProduced.getLaborExponent())
-				* Math.pow(capital, goodProduced.getCapitalExponent()) - getUnroundedProduction();
+		return goodProduced.getProductionMultiplier() * Math.pow(labor + 2, goodProduced.getLaborExponent())
+				* Math.pow(capital + 1, goodProduced.getCapitalExponent()) - getUnroundedProduction();
 	}
 
 	@Override
 	public double getPrice() {
 		// TODO Auto-generated method stub
-		return 5;
+		return BoundedRandomNormal.getBoundedRandomNormal(1.0, 2.0, 1.5, 0.5);
 	}
 
 	public boolean buyLabor() { // boolean lets us see if offer was made

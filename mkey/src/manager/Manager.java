@@ -33,14 +33,12 @@ public class Manager {
 		}
 
 		for (int i = 0; i < noHouseholds; i++) {
-			households.add(new Household(i));
+			households.add(new Household(i, this));
 		}
 
 		for (Good good : Good.values()) {
 			markets.put(good, new Market(good));
 		}
-
-		Tick();
 	}
 
 	public void Tick() {
@@ -52,7 +50,7 @@ public class Manager {
 		// Then, add to market and sort.
 		getFirmProduction();
 		// Let households buy goods.
-		System.out.println("woot");
+		buyGoods();
 		// Roll everything over.
 	}
 
@@ -81,6 +79,17 @@ public class Manager {
 			for (Firm firm : firms) {
 				boolean firmBool = firm.buyLabor();
 				loopBool = (loopBool || firmBool);
+			}
+		}
+	}
+
+	public void buyGoods() {
+		boolean loopBool = true;
+		while (loopBool) {
+			loopBool = false;
+			for (Household household : households) {
+				boolean householdBool = household.buyGoods();
+				loopBool = (loopBool || householdBool);
 			}
 		}
 	}

@@ -9,7 +9,7 @@ public abstract class Agent {
 
 	protected Manager manager;
 
-	protected int capital = 1; // HARDCODED VARIABLE: BAD PRACTICE FIX
+	protected int capital = 0; // HARDCODED VARIABLE: BAD PRACTICE FIX
 
 	protected int offersLookedAtBeforeBuying = 10; // HARDCODED VARIABLE: BAD PRACTICE FIX
 

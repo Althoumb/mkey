@@ -10,6 +10,7 @@ public class Main {
 			System.out.println("No arguments specified. Assuming 10 firms and 100 households.");
 			manager = new Manager(10, 100);
 		}
+		manager.Tick();
 	}
 
 }
