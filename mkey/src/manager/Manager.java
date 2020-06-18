@@ -52,6 +52,17 @@ public class Manager {
 		// Let households buy goods.
 		buyGoods();
 		// Roll everything over.
+		test();
+	}
+
+	public void test() {
+		for (Household household : households) {
+			System.out.printf("Household has $%.2f %n", household.getCash());
+		}
+		for (Firm firm : firms) {
+			System.out.printf("Firm has $%.2f %n", firm.getCash());
+		}
+		System.out.println((markets.get(Good.LABOR).getOffers().size()) / 40.0 + "% labor underutilization");
 	}
 
 	public void getLaborProduction() {

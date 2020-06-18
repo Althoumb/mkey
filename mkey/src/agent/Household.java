@@ -84,7 +84,7 @@ public class Household extends Agent {
 		if (cash > price) {
 			manager.getMarkets().get(goodType).buyGood(indexOfBestGood);
 			cash -= price;
-			System.out.println(price);
+			// System.out.println(price);
 			return true;
 		} else {
 			return false;
