@@ -1,10 +1,17 @@
 package agent;
 
+import manager.Manager;
 import market.Goods.Good;
 
 public abstract class Agent {
 	protected double cash;
 	protected Good goodProduced;
+
+	protected Manager manager;
+
+	protected int capital = 1; // HARDCODED VARIABLE: BAD PRACTICE FIX
+
+	protected int offersLookedAtBeforeBuying = 10; // HARDCODED VARIABLE: BAD PRACTICE FIX
 
 	private int id;
 
@@ -24,6 +31,10 @@ public abstract class Agent {
 	 * 
 	 * return possibilities; }
 	 */
+
+	public Good getGood() {
+		return goodProduced;
+	}
 
 	public double getID() {
 		return id;

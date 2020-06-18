@@ -28,7 +28,8 @@ public class Manager {
 		Random rand = new Random();
 
 		for (int i = 0; i < noFirms; i++) {
-			firms.add(new Firm(i, possibilities.get(rand.nextInt(possibilities.size())))); // that's a lot of parens
+			firms.add(new Firm(i, possibilities.get(rand.nextInt(possibilities.size())), this)); // that's a lot of
+																									// parens
 		}
 
 		for (int i = 0; i < noHouseholds; i++) {
@@ -47,8 +48,11 @@ public class Manager {
 		// Then, add to market and sort.
 		getLaborProduction();
 		// Let firms buy labor and produce.
+		buyLabor();
 		// Then, add to market and sort.
+		getFirmProduction();
 		// Let households buy goods.
+		System.out.println("woot");
 		// Roll everything over.
 	}
 
@@ -59,7 +63,29 @@ public class Manager {
 			int quantity = household.getProduction();
 			laborMarket.addGoodToMarket(price, quantity, household);
 		}
+	}
 
-		laborMarket.sortMarket();
+	public void getFirmProduction() {
+		for (Firm firm : firms) {
+			Market goodMarket = markets.get(firm.getGood());
+			double price = firm.getPrice();
+			int quantity = firm.getProduction();
+			goodMarket.addGoodToMarket(price, quantity, firm);
+		}
+	}
+
+	public void buyLabor() {
+		boolean loopBool = true;
+		while (loopBool) {
+			loopBool = false;
+			for (Firm firm : firms) {
+				boolean firmBool = firm.buyLabor();
+				loopBool = (loopBool || firmBool);
+			}
+		}
+	}
+
+	public HashMap<Good, Market> getMarkets() {
+		return markets;
 	}
 }

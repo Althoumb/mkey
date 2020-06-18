@@ -1,6 +1,7 @@
 package market;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import agent.Agent;
 import market.Goods.Good;
@@ -23,5 +24,27 @@ public class Market {
 
 	public void sortMarket() {
 		goodsForSale.sort(new GoodOfferComparator());
+	}
+
+	public void shuffleMarket() {
+		Collections.shuffle(goodsForSale);
+	}
+
+	public ArrayList<Pair<Double, Agent>> getOffers() {
+		return goodsForSale;
+	}
+
+	public double getPriceOfOffer(int index) {
+		if (index < goodsForSale.size()) {
+			return goodsForSale.get(index).getL();
+		} else {
+			return Double.MAX_VALUE;
+		}
+	}
+
+	public void buyGood(int index) {
+		Pair<Double, Agent> offer = goodsForSale.get(index);
+		offer.getR().addCash(offer.getL());
+		goodsForSale.remove(index);
 	}
 }

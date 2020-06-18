@@ -1,6 +1,7 @@
 package agent;
 
 import market.Goods.Good;
+import util.BoundedRandomNormal;
 
 public class Household extends Agent {
 
@@ -12,13 +13,13 @@ public class Household extends Agent {
 	@Override
 	public int getProduction() {
 		// TODO Auto-generated method stub
-		return 40;
+		return 2;
 	}
 
 	@Override
 	public double getPrice() {
 		// TODO Auto-generated method stub
-		return 0;
+		return BoundedRandomNormal.getBoundedRandomNormal(2.0, 10.0, 4.0, 2.0);
 	}
 
 }
