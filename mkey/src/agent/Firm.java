@@ -146,7 +146,7 @@ public class Firm extends Agent {
 			avgProfit += profit;
 			avgProfit = avgProfit / (bucketSize + 1.0);
 			avgProfitBuckets.replace(intPrice, avgProfit);
-			if (bucketSize <= 10) {
+			if (bucketSize <= 3) {
 				bucketSizes.replace(intPrice, bucketSize + 1);
 			}
 		} else {

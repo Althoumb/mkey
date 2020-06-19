@@ -59,7 +59,8 @@ public class Manager {
 		// Roll everything over.
 		rollOver();
 		time++;
-		System.out.println((System.nanoTime() - nanoTime) / 1000000.0 + " ms for tick #" + time);
+		// System.out.println((System.nanoTime() - nanoTime) / 1000000.0 + " ms for tick
+		// #" + time);
 	}
 
 	private void rollOver() {
@@ -95,7 +96,8 @@ public class Manager {
 			// $%.2f%n", firm.getGood(),
 			// firm.getCash(), firm.getLastPrice());
 		}
-		System.out.println(100.0 * (markets.get(Good.LABOR).getOffers().size()) / 4000.0 + "% labor underutilization");
+		// System.out.println(100.0 * (markets.get(Good.LABOR).getOffers().size()) /
+		// 4000.0 + "% labor underutilization");
 	}
 
 	public void dumpFirm(int dump) {

@@ -33,7 +33,7 @@ public class Household extends Agent {
 			}
 		}
 		this.manager = manager;
-		this.cash = 1000;
+		this.cash = 100;
 	}
 
 	@Override
@@ -230,7 +230,9 @@ public class Household extends Agent {
 			avgProfit += profit;
 			avgProfit = avgProfit / (bucketSize + 1.0);
 			avgProfitBuckets.replace(intPrice, avgProfit);
-			bucketSizes.replace(intPrice, bucketSize + 1);
+			if (bucketSize <= 3) {
+				bucketSizes.replace(intPrice, bucketSize + 1);
+			}
 		} else {
 			avgProfitBuckets.put(intPrice, profit);
 			bucketSizes.put(intPrice, 1);
