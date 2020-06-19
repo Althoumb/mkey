@@ -8,6 +8,8 @@ public abstract class Agent {
 	protected double oldCash;
 	protected Good goodProduced;
 
+	protected double interestRate = 0.02; // 2% converted to weekly
+
 	protected Manager manager;
 
 	protected int capital = 0; // HARDCODED VARIABLE: BAD PRACTICE FIX

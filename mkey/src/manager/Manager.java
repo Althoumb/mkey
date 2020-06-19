@@ -91,14 +91,19 @@ public class Manager {
 			// System.out.printf("Household has $%.2f %n", household.getCash());
 		}
 		for (Firm firm : firms) {
-			System.out.printf("Firm producing %s has $%.2f selling at a price of $%.2f %n", firm.getGood(),
-					firm.getCash(), firm.getLastPrice());
+			// System.out.printf("Firm producing %s has $%.2f selling at a price of
+			// $%.2f%n", firm.getGood(),
+			// firm.getCash(), firm.getLastPrice());
 		}
 		System.out.println(100.0 * (markets.get(Good.LABOR).getOffers().size()) / 4000.0 + "% labor underutilization");
 	}
 
 	public void dumpFirm(int dump) {
 		firms.get(dump).dumpHistory();
+	}
+
+	public void dumpHousehold(int dump) {
+		households.get(dump).dumpHistory();
 	}
 
 	private void getLaborProduction() {

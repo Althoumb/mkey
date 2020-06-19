@@ -91,7 +91,7 @@ public class Firm extends Agent {
 		 * 1.6, 1, 0.1); } }
 		 */
 		if (profitHistory.size() < 52) {
-			double price = BoundedRandomNormal.getBoundedRandomNormal(2.0, 20.0, 7.5, 5.0);
+			double price = BoundedRandomNormal.getBoundedRandomNormal(0.0, Double.MAX_VALUE, 7.5, 10.0);
 			return price;
 		} else {
 			double maxProfit = Double.NEGATIVE_INFINITY;
@@ -102,7 +102,7 @@ public class Firm extends Agent {
 					maxProfit = entry.getValue();
 				}
 			}
-			return priceBucket + Math.random();
+			return (priceBucket + 0.5) * BoundedRandomNormal.getBoundedRandomNormal(0.5, 1.5, 1, 0.05);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class Firm extends Agent {
 			}
 		}
 		double marginalProduction = getMarginalProduction();
-		if ((marginalProduction * getPriceWithoutUpdating() > cheapestLabor * 1.5) && (indexOfCheapestGood != -1)) {
+		if ((marginalProduction * getPriceWithoutUpdating() > cheapestLabor) && (indexOfCheapestGood != -1)) {
 			laborMarket.buyGood(indexOfCheapestGood);
 			addCash(-cheapestLabor);
 			labor += 1;
@@ -146,7 +146,9 @@ public class Firm extends Agent {
 			avgProfit += profit;
 			avgProfit = avgProfit / (bucketSize + 1.0);
 			avgProfitBuckets.replace(intPrice, avgProfit);
-			bucketSizes.replace(intPrice, bucketSize + 1);
+			if (bucketSize <= 10) {
+				bucketSizes.replace(intPrice, bucketSize + 1);
+			}
 		} else {
 			avgProfitBuckets.put(intPrice, profit);
 			bucketSizes.put(intPrice, 1);
