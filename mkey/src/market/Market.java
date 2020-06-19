@@ -47,4 +47,8 @@ public class Market {
 		offer.getR().addCash(offer.getL());
 		goodsForSale.remove(index);
 	}
+
+	public void rollOver() {
+		goodsForSale.clear();
+	}
 }

@@ -2,6 +2,7 @@ package agent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import manager.Manager;
 import market.Goods.Good;
@@ -57,35 +58,65 @@ public class Household extends Agent {
 		double price = 0;
 		int indexOfBestGood = -1;
 		Good goodType = null;
-
 		for (Good good : purchaseableGoods) {
 			Market market = manager.getMarkets().get(good);
-			double cheapestGood = Double.MAX_VALUE;
-			int indexOfCheapestGood = -1;
-			market.shuffleMarket();
-			for (int i = 0; i < offersLookedAtBeforeBuying; i++) {
-				if (market.getPriceOfOffer(i) < cheapestGood) {
-					cheapestGood = market.getPriceOfOffer(i);
-					indexOfCheapestGood = i;
+			if (market.getOffers().size() != 0) {
+				double cheapestGood = Double.MAX_VALUE;
+				int indexOfCheapestGood = -1;
+				// market.shuffleMarket();
+				ArrayList<Integer> ints = new ArrayList<Integer>();
+				/*
+				 * if (market.getOffers().size() > offersLookedAtBeforeBuying) { ints = new
+				 * ArrayList<Integer>(ThreadLocalRandom.current().ints(0,
+				 * market.getOffers().size() - 1)
+				 * .distinct().limit(offersLookedAtBeforeBuying).boxed().collect(Collectors.
+				 * toList())); } else { ints = new
+				 * ArrayList<Integer>(ThreadLocalRandom.current().ints(0,
+				 * market.getOffers().size() - 1)
+				 * .distinct().limit(market.getOffers().size()).boxed().collect(Collectors.
+				 * toList())); }
+				 */
+				boolean loop = true;
+				Random rand = new Random();
+				while (loop) {
+					int i = rand.nextInt(market.getOffers().size());
+					if (!ints.contains(i)) {
+						ints.add(i);
+						if (market.getPriceOfOffer(i) < cheapestGood) {
+							cheapestGood = market.getPriceOfOffer(i);
+							indexOfCheapestGood = i;
+						}
+					}
+					if ((ints.size() >= offersLookedAtBeforeBuying) || (ints.size() >= market.getOffers().size())) {
+						loop = false;
+					}
+				}
+				double marginalUtil = getMarginalUtility(good);
+				double utilsPerPrice = (marginalUtil / cheapestGood);
+				if (utilsPerPrice > bestUtilityPerPrice) {
+					goodType = good;
+					indexOfBestGood = indexOfCheapestGood;
+					bestUtilityPerPrice = utilsPerPrice;
+					price = cheapestGood;
 				}
 			}
-			double marginalUtil = getMarginalUtility(good);
-			double utilsPerPrice = (marginalUtil / cheapestGood);
-			if (utilsPerPrice > bestUtilityPerPrice) {
-				goodType = good;
-				indexOfBestGood = indexOfCheapestGood;
-				bestUtilityPerPrice = utilsPerPrice;
-				price = cheapestGood;
-			}
 		}
-
-		if (cash > price) {
+		if ((cash > price) && (indexOfBestGood != -1)) {
 			manager.getMarkets().get(goodType).buyGood(indexOfBestGood);
 			cash -= price;
 			// System.out.println(price);
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	@Override
+	public void rollOver() {
+		// TODO Auto-generated method stub
+		oldCash = cash;
+		for (Good good : purchaseableGoods) {
+			quantityEachGood.replace(good, 0);
 		}
 	}
 

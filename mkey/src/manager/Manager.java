@@ -14,6 +14,8 @@ public class Manager {
 	ArrayList<Household> households = new ArrayList<Household>();
 	HashMap<Good, Market> markets = new HashMap<Good, Market>();
 
+	int time = 0;
+
 	public Manager(int noFirms, int noHouseholds) {
 
 		// this code makes it so that we can assign each firm to a random good
@@ -42,31 +44,64 @@ public class Manager {
 	}
 
 	public void Tick() {
+		long nanoTime = System.nanoTime();
 		// First, get labor production.
 		// Then, add to market and sort.
 		getLaborProduction();
 		// Let firms buy labor and produce.
 		buyLabor();
-		test();
 		// Then, add to market and sort.
 		getFirmProduction();
 		// Let households buy goods.
 		buyGoods();
-		// Roll everything over.
+
 		test();
+		// Roll everything over.
+		rollOver();
+		time++;
+		System.out.println((System.nanoTime() - nanoTime) / 1000000.0 + " ms for tick #" + time);
 	}
 
-	public void test() {
+	private void rollOver() {
+		rollOverHouseholds();
+		rollOverFirms();
+		rollOverMarkets();
+	}
+
+	private void rollOverMarkets() {
+		for (Good good : Good.values()) {
+			markets.get(good).rollOver();
+		}
+	}
+
+	private void rollOverHouseholds() {
 		for (Household household : households) {
-			System.out.printf("Household has $%.2f %n", household.getCash());
+			household.rollOver();
+		}
+	}
+
+	private void rollOverFirms() {
+		for (Firm firm : firms) {
+			firm.rollOver();
+		}
+	}
+
+	private void test() {
+		for (Household household : households) {
+			// System.out.printf("Household has $%.2f %n", household.getCash());
 		}
 		for (Firm firm : firms) {
-			System.out.printf("Firm has $%.2f %n", firm.getCash());
+			System.out.printf("Firm producing %s has $%.2f selling at a price of $%.2f %n", firm.getGood(),
+					firm.getCash(), firm.getLastPrice());
 		}
 		System.out.println(100.0 * (markets.get(Good.LABOR).getOffers().size()) / 4000.0 + "% labor underutilization");
 	}
 
-	public void getLaborProduction() {
+	public void dumpFirm(int dump) {
+		firms.get(dump).dumpHistory();
+	}
+
+	private void getLaborProduction() {
 		Market laborMarket = markets.get(Good.LABOR);
 		for (Household household : households) {
 			double price = household.getPrice();
@@ -75,7 +110,7 @@ public class Manager {
 		}
 	}
 
-	public void getFirmProduction() {
+	private void getFirmProduction() {
 		for (Firm firm : firms) {
 			Market goodMarket = markets.get(firm.getGood());
 			double price = firm.getPrice();
@@ -84,7 +119,7 @@ public class Manager {
 		}
 	}
 
-	public void buyLabor() {
+	private void buyLabor() {
 		boolean loopBool = true;
 		while (loopBool) {
 			loopBool = false;
@@ -95,7 +130,7 @@ public class Manager {
 		}
 	}
 
-	public void buyGoods() {
+	private void buyGoods() {
 		boolean loopBool = true;
 		while (loopBool) {
 			loopBool = false;
@@ -104,6 +139,10 @@ public class Manager {
 				loopBool = (loopBool || householdBool);
 			}
 		}
+	}
+
+	public int getTime() {
+		return time;
 	}
 
 	public HashMap<Good, Market> getMarkets() {

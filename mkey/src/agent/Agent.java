@@ -5,19 +5,22 @@ import market.Goods.Good;
 
 public abstract class Agent {
 	protected double cash;
+	protected double oldCash;
 	protected Good goodProduced;
 
 	protected Manager manager;
 
 	protected int capital = 0; // HARDCODED VARIABLE: BAD PRACTICE FIX
 
-	protected int offersLookedAtBeforeBuying = 10; // HARDCODED VARIABLE: BAD PRACTICE FIX
+	protected int offersLookedAtBeforeBuying = 5; // HARDCODED VARIABLE: BAD PRACTICE FIX
 
 	private int id;
 
 	abstract int getProduction();
 
 	abstract double getPrice();
+
+	abstract void rollOver();
 
 	/*
 	 * Do we really need dynamic production? public ArrayList<Good>
